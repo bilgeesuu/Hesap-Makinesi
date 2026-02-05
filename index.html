@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Çok Fonksiyonlu Hesaplama Aracı</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+    <header>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+            <h1>Çok Fonksiyonlu Hesaplama Aracı</h1>
+            <button id="themeToggle" class="theme-toggle" onclick="toggleDarkMode()" title="Tema değiştir" aria-label="Koyu mod aç/kapat">
+                <svg class="theme-icon-light" viewBox="0 0 24 24" role="img" aria-hidden="true">
+                    <path fill="currentColor" d="M12 3v1m0 16v1m9-9h-1m-16 0H1m15.657 5.657l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+                <svg class="theme-icon-dark" viewBox="0 0 24 24" role="img" aria-hidden="true" style="display:none">
+                    <path fill="currentColor" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
+        </div>
+        <nav>
+            <ul>
+                <li onclick="showSection('calculator')">Basit Hesap Makinesi</li>
+                <li onclick="showSection('bmi')">BMI Hesaplama</li>
+                <li onclick="showSection('interest')">Faiz Hesaplama</li>
+                <li onclick="showSection('temperature')">Sıcaklık Dönüştürücü</li>
+                <li onclick="showSection('factorial')">Faktöriyel Hesaplama</li>
+                <li onclick="showSection('powroot')">Karekök & Üs</li>
+                <li onclick="showSection('average')">Ortalama</li>
+                <li onclick="showSection('binary')">Decimal/Binary</li>
+                <li onclick="showSection('speed')">Hız</li>
+                <li onclick="showSection('pressure')">Basınç</li>
+                <li onclick="showSection('potential')">Potansiyel Enerji</li>
+                <li onclick="showSection('compound')">Bileşik Faiz</li>
+                <li onclick="showSection('loan')">Kredi Hesabı</li>
+                <li onclick="showSection('currency')">Döviz</li>
+                <li onclick="showSection('percent')">Yüzde</li>
+                <li onclick="showSection('bodyfat')">Vücut Yağ Oranı</li>
+                <li onclick="showSection('bodywater')">Vücut Su Oranı</li>
+                <li onclick="showSection('agecalc')">Yaş Hesaplama</li>
+                <li onclick="showSection('calories')">Kalori Yakımı</li>
+                <li onclick="showSection('area')">Alan Hesaplama</li>
+                <li onclick="showSection('perimeter')">Çevre Hesaplama</li>
+                <li onclick="showSection('triangle')">Üçgen Alanı</li>
+                <li onclick="showSection('avgspeed')">Ortalama Hız</li>
+                <li onclick="showSection('worktime')">İş-Bitirme Süresi</li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- BASİT HESAP MAKİNESİ -->
+        <section id="calculator" class="section">
+            <h2>Basit Hesap Makinesi</h2>
+            <input type="number" id="num1" placeholder="1. Sayı" />
+            <input type="number" id="num2" placeholder="2. Sayı" />
+            <div class="ops">
+                <button class="icon-btn op-add" onclick="calculate('add')" title="Topla" aria-label="Topla">
+                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2h6z"/></svg>
+                </button>
+                <button class="icon-btn op-sub" onclick="calculate('subtract')" title="Çıkar" aria-label="Çıkar">
+                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path fill="currentColor" d="M5 11h14v2H5z"/></svg>
+                </button>
+                <button class="icon-btn op-mul" onclick="calculate('multiply')" title="Çarp" aria-label="Çarp">
+                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+                <button class="icon-btn op-div" onclick="calculate('divide')" title="Böl" aria-label="Böl">
+                    <svg viewBox="0 0 24 24" role="img" aria-hidden="true"><path fill="currentColor" d="M12 8a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm0 11a1.5 1.5 0 110-3 1.5 1.5 0 010 3zm-6-6h12v2H6z"/></svg>
+                </button>
+            </div>
+            <p id="calcResult" class="result"></p>
+            <div id="calcError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('calculator', ['num1', 'num2'], ['calcResult', 'calcError'])">Sıfırla</button>
+        </section>
+
+        <!-- BMI HESAPLAMA -->
+        <section id="bmi" class="section" style="display: none">
+            <h2>BMI Hesaplama</h2>
+            <input type="number" id="weight" placeholder="Kilo (kg)" />
+            <input type="number" id="height" placeholder="Boy (cm)" />
+            <button onclick="calculateBMI()">Hesapla</button>
+            <p id="bmiResult" class="result"></p>
+            <div id="bmiError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('bmi', ['weight', 'height'], ['bmiResult', 'bmiError'])">Sıfırla</button>
+        </section>
+
+        <!-- BASİT FAİZ HESAPLAMA -->
+        <section id="interest" class="section" style="display: none">
+            <h2>Basit Faiz Hesaplama</h2>
+            <input type="number" id="principal" placeholder="Anapara" />
+            <input type="number" id="rate" placeholder="Faiz oranı (%)" />
+            <input type="number" id="time" placeholder="Yıl" />
+            <button onclick="calculateInterest()">Hesapla</button>
+            <p id="interestResult" class="result"></p>
+            <div id="interestError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('interest', ['principal', 'rate', 'time'], ['interestResult', 'interestError'])">Sıfırla</button>
+        </section>
+
+        <!-- SICAKLIK DÖNÜŞTÜRÜCÜ -->
+        <section id="temperature" class="section" style="display: none">
+            <h2>Sıcaklık Dönüştürücü (C ↔ F)</h2>
+            <input type="number" id="tempInput" placeholder="Sıcaklık değeri" />
+            <select id="tempType">
+                <option value="CtoF">C → F</option>
+                <option value="FtoC">F → C</option>
+            </select>
+            <button onclick="convertTemperature()">Dönüştür</button>
+            <p id="tempResult" class="result"></p>
+            <div id="tempError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('temperature', ['tempInput'], ['tempResult', 'tempError'])">Sıfırla</button>
+        </section>
+
+        <!-- FAKTÖRİYEL HESAPLAMA -->
+        <section id="factorial" class="section" style="display: none">
+            <h2>Faktöriyel Hesaplama</h2>
+            <input type="number" id="factInput" placeholder="Sayı girin" />
+            <button onclick="calculateFactorial()">Hesapla</button>
+            <p id="factResult" class="result"></p>
+            <div id="factError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('factorial', ['factInput'], ['factResult', 'factError'])">Sıfırla</button>
+        </section>
+
+        <!-- KAREKÖK & ÜS ALMA -->
+        <section id="powroot" class="section" style="display: none">
+            <h2>Karekök & Üs Alma</h2>
+            <input type="number" id="baseNumber" placeholder="Sayı" />
+            <input type="number" id="powerNumber" placeholder="Üs (karekök için 0 bırak)" />
+            <button onclick="calculatePowRoot()">Hesapla</button>
+            <p id="powResult" class="result"></p>
+            <div id="powError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('powroot', ['baseNumber', 'powerNumber'], ['powResult', 'powError'])">Sıfırla</button>
+        </section>
+
+        <!-- ORTALAMA HESAPLAMA -->
+        <section id="average" class="section" style="display: none">
+            <h2>Ortalama Hesaplama</h2>
+            <input type="text" id="avgInput" placeholder="Sayıları virgül ile girin (ör: 10,20,30)" />
+            <button onclick="calculateAverage()">Hesapla</button>
+            <p id="avgResult" class="result"></p>
+            <div id="avgError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('average', ['avgInput'], ['avgResult', 'avgError'])">Sıfırla</button>
+        </section>
+
+        <!-- SAYI DÖNÜŞTÜRÜCÜ -->
+        <section id="binary" class="section" style="display:none">
+            <h2>Sayı Dönüştürücü (Decimal ↔ Binary)</h2>
+            <input type="number" id="binInput" placeholder="Sayı">
+            <select id="binType">
+                <option value="toBinary">Decimal → Binary</option>
+                <option value="toDecimal">Binary → Decimal</option>
+            </select>
+            <button onclick="convertBinary()">Dönüştür</button>
+            <p id="binResult" class="result"></p>
+            <div id="binError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('binary', ['binInput'], ['binResult', 'binError'])">Sıfırla</button>
+        </section>
+
+        <!-- HIZ HESAPLAMA -->
+        <section id="speed" class="section" style="display:none">
+            <h2>Hız Hesaplama</h2>
+            <input type="number" id="distance" placeholder="Mesafe (metre)">
+            <input type="number" id="timeSec" placeholder="Süre (saniye)">
+            <button onclick="calculateSpeed()">Hesapla</button>
+            <p id="speedResult" class="result"></p>
+            <div id="speedError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('speed', ['distance', 'timeSec'], ['speedResult', 'speedError'])">Sıfırla</button>
+        </section>
+
+        <!-- BASINÇ HESAPLAMA -->
+        <section id="pressure" class="section" style="display:none">
+            <h2>Basınç Hesaplama</h2>
+            <input type="number" id="force" placeholder="Kuvvet (N)">
+            <input type="number" id="pressureArea" placeholder="Alan (m²)">
+            <button onclick="calculatePressure()">Hesapla</button>
+            <p id="pressureResult" class="result"></p>
+            <div id="pressureError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('pressure', ['force', 'pressureArea'], ['pressureResult', 'pressureError'])">Sıfırla</button>
+        </section>
+
+        <!-- POTANSİYEL ENERJİ HESAPLAMA -->
+        <section id="potential" class="section" style="display:none">
+            <h2>Potansiyel Enerji</h2>
+            <input type="number" id="mass" placeholder="Kütle (kg)">
+            <input type="number" id="heightPE" placeholder="Yükseklik (m)">
+            <button onclick="calculatePotentialEnergy()">Hesapla</button>
+            <p id="peResult" class="result"></p>
+            <div id="peError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('potential', ['mass', 'heightPE'], ['peResult', 'peError'])">Sıfırla</button>
+        </section>
+
+        <!-- BİLEŞİK FAİZ HESAPLAMA -->
+        <section id="compound" class="section" style="display:none">
+            <h2>Bileşik Faiz Hesabı</h2>
+            <input type="number" id="cprincipal" placeholder="Anapara">
+            <input type="number" id="crate" placeholder="Faiz (%)">
+            <input type="number" id="cyears" placeholder="Yıl">
+            <button onclick="calculateCompoundInterest()">Hesapla</button>
+            <p id="compoundResult" class="result"></p>
+            <div id="compoundError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('compound', ['cprincipal', 'crate', 'cyears'], ['compoundResult', 'compoundError'])">Sıfırla</button>
+        </section>
+
+        <!-- KREDİ ÖDEME HESAPLAMA -->
+        <section id="loan" class="section" style="display:none">
+            <h2>Kredi Ödeme Hesaplama</h2>
+            <input type="number" id="loanAmount" placeholder="Kredi Tutarı">
+            <input type="number" id="loanRate" placeholder="Faiz (%)">
+            <input type="number" id="loanMonths" placeholder="Ay sayısı">
+            <button onclick="calculateLoan()">Hesapla</button>
+            <p id="loanResult" class="result"></p>
+            <div id="loanError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('loan', ['loanAmount', 'loanRate', 'loanMonths'], ['loanResult', 'loanError'])">Sıfırla</button>
+        </section>
+
+        <!-- DÖVİZ ÇEVİRİCİ -->
+        <section id="currency" class="section" style="display:none">
+            <h2>Döviz Çevirici</h2>
+            <input type="number" id="curAmount" placeholder="Miktar">
+            <select id="curType">
+                <option value="18">TL → USD (1 USD = 18 TL)</option>
+                <option value="20">TL → EUR (1 EUR = 20 TL)</option>
+                <option value="0.055">USD → TL</option>
+            </select>
+            <button onclick="convertCurrency()">Çevir</button>
+            <p id="currencyResult" class="result"></p>
+            <div id="currencyError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('currency', ['curAmount'], ['currencyResult', 'currencyError'])">Sıfırla</button>
+        </section>
+
+        <!-- YÜZDE HESAPLAMA -->
+        <section id="percent" class="section" style="display:none">
+            <h2>Yüzde Hesaplama</h2>
+            <input type="number" id="percentValue" placeholder="Sayı">
+            <input type="number" id="percentRate" placeholder="Yüzde (%)">
+            <button onclick="calculatePercent()">Hesapla</button>
+            <p id="percentResult" class="result"></p>
+            <div id="percentError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('percent', ['percentValue', 'percentRate'], ['percentResult', 'percentError'])">Sıfırla</button>
+        </section>
+
+        <!-- VÜCUT YAĞ ORANI HESAPLAMA -->
+        <section id="bodyfat" class="section" style="display:none">
+            <h2>Vücut Yağ Oranı</h2>
+            <input type="number" id="bfWaist" placeholder="Bel (cm)">
+            <input type="number" id="bfNeck" placeholder="Boyun (cm)">
+            <input type="number" id="bfHeight" placeholder="Boy (cm)">
+            <button onclick="calculateBodyFat()">Hesapla</button>
+            <p id="bfResult" class="result"></p>
+            <div id="bfError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('bodyfat', ['bfWaist', 'bfNeck', 'bfHeight'], ['bfResult', 'bfError'])">Sıfırla</button>
+        </section>
+
+        <!-- Vücut Su Oranı -->
+        <section id="bodywater" class="section" style="display:none">
+            <h2>Vücut Su Oranı (Tahmini)</h2>
+            <label> Cinsiyet:
+                <select id="bwGender">
+                    <option value="male">Erkek</option>
+                    <option value="female">Kadın</option>
+                </select>
+            </label>
+            <input type="number" id="bwWeight" placeholder="Kilo (kg)">
+            <button onclick="calculateBodyWater()">Hesapla</button>
+            <p id="bwResult" class="result"></p>
+            <div id="bwError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('bodywater', ['bwWeight'], ['bwResult', 'bwError'])">Sıfırla</button>
+        </section>
+
+        <!-- YAŞ HESAPLAMA -->
+        <section id="agecalc" class="section" style="display:none">
+            <h2>Yaş Hesaplama</h2>
+            <label>Doğum Tarihi:</label>
+            <input type="date" id="birthdate">
+            <button onclick="calculateAge()">Hesapla</button>
+            <p id="ageResult" class="result"></p>
+            <div id="ageError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('agecalc', ['birthdate'], ['ageResult', 'ageError'])">Sıfırla</button>
+        </section>
+
+        <!-- KALORİ YAKIMI -->
+        <section id="calories" class="section" style="display:none">
+            <h2>Kalori Yakımı (MET)</h2>
+            <input type="number" id="calWeight" placeholder="Kilo (kg)">
+            <input type="number" id="calMinutes" placeholder="Süre (dakika)">
+            <input type="number" id="calMET" placeholder="MET değeri (ör. yürüyüş=3.5, koşu=9)">
+            <button onclick="calculateCalories()">Hesapla</button>
+            <p id="calResult" class="result"></p>
+            <div id="calError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('calories', ['calWeight', 'calMinutes', 'calMET'], ['calResult', 'calError'])">Sıfırla</button>
+        </section>
+
+        <!-- ALAN HESAPLAMA -->
+        <section id="area" class="section" style="display:none">
+            <h2>Alan Hesaplama</h2>
+            <select id="areaType" onchange="updateAreaInputs()">
+                <option value="rectangle">Dikdörtgen (a,b)</option>
+                <option value="circle">Daire (yarıçap)</option>
+                <option value="triangle">Üçgen (taban, yükseklik)</option>
+            </select>
+            <div id="areaInputs"></div>
+            <button onclick="calculateArea()">Hesapla</button>
+            <p id="areaResult" class="result"></p>
+            <div id="areaError" class="error"></div>
+            <button class="btn-reset" onclick="resetAreaSection()">Sıfırla</button>
+        </section>
+
+        <!-- ÇEVRE HESAPLAMA -->
+        <section id="perimeter" class="section" style="display:none">
+            <h2>Çevre Hesaplama</h2>
+            <select id="periType" onchange="updatePeriInputs()">
+                <option value="rectangle">Dikdörtgen</option>
+                <option value="circle">Daire</option>
+            </select>
+            <div id="periInputs"></div>
+            <button onclick="calculatePerimeter()">Hesapla</button>
+            <p id="periResult" class="result"></p>
+            <div id="periError" class="error"></div>
+            <button class="btn-reset" onclick="resetPeriSection()">Sıfırla</button>
+        </section>
+
+        <!-- ÜÇGEN ALANI -->
+        <section id="triangle" class="section" style="display:none">
+            <h2>Üçgen Alanı (Heron)</h2>
+            <input type="number" id="triA" placeholder="Kenar a">
+            <input type="number" id="triB" placeholder="Kenar b">
+            <input type="number" id="triC" placeholder="Kenar c">
+            <button onclick="calculateTriangleArea()">Hesapla</button>
+            <p id="triResult" class="result"></p>
+            <div id="triError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('triangle', ['triA', 'triB', 'triC'], ['triResult', 'triError'])">Sıfırla</button>
+        </section>
+
+        <!-- ORTALAMA HIZ -->
+        <section id="avgspeed" class="section" style="display:none">
+            <h2>Ortalama Hız</h2>
+            <input type="number" id="avgDistance" placeholder="Mesafe (km)">
+            <input type="number" id="avgTime" placeholder="Zaman (saat)">
+            <button onclick="calculateAvgSpeed()">Hesapla</button>
+            <p id="avgSpeedResult" class="result"></p>
+            <div id="avgSpeedError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('avgspeed', ['avgDistance', 'avgTime'], ['avgSpeedResult', 'avgSpeedError'])">Sıfırla</button>
+        </section>
+
+        <!-- İŞ-BİTİRME SÜRESİ -->
+        <section id="worktime" class="section" style="display:none">
+            <h2>İş-Bitirme Süresi (İki kişi)</h2>
+            <input type="number" id="t1" placeholder="1. kişinin süre (saat)">
+            <input type="number" id="t2" placeholder="2. kişinin süre (saat)">
+            <button onclick="calculateWorkTime()">Hesapla</button>
+            <p id="workTimeResult" class="result"></p>
+            <div id="workTimeError" class="error"></div>
+            <button class="btn-reset" onclick="resetSection('worktime', ['t1','t2'], ['workTimeResult','workTimeError'])">Sıfırla</button>
+        </section>
+
+    </main>
+    <script src="./jss/main.js"></script>
+</body>
+
+</html>
